@@ -19,9 +19,9 @@ jobs:
       - uses: alagos/regex-merge@927e66290e16a9b7a565ab29e0d1b574522a4731
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
-          headBranch: ${GITHUB_REF#refs/heads/}
+          headBranch: ${{ GITHUB_REF#refs/heads/ }}
           branchRegex: '^main$'
           
       - uses: dawidd6/action-delete-branch@d1efac9a6f7a9b408d4e8ff663a99c1fbac17b3f
         with:
-          branches: ${GITHUB_REF#refs/heads/}
+          branches: ${{ GITHUB_REF#refs/heads/ }}
