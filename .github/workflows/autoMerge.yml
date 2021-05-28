@@ -3,12 +3,11 @@
 name: CI
 
 on:
-  create:
-    branches-ignore:
-      - '!releases/**'
+  create
 
 jobs:
   build:
+    if: ${{ contains(github.ref, 'refs/heads/releases/') }}
     runs-on: ubuntu-latest
 
     steps:
