@@ -1,24 +1,30 @@
-name: Merge Release Branch to main
+name: Merge Release Branch to develop
+#Run only if new branch/tag is created.(Only Branch creation trigger is not available)
 on:
   create
 
 jobs:
+  #Job Name
   mergeBranch:
+  #Run Only If Branch Name Starts with releases/
     if: ${{ contains(github.ref, 'refs/heads/releases/') }}
     runs-on: ubuntu-latest
 
     steps:
+    #Store branch name in ${{ steps.branch_name.outputs.branch }}
       - name: Extract branch name
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: branch_name
-        
+    
+    #Merge branch with name equal to variable named ${{ steps.branch_name.outputs.branch }} to develop
       - uses: alagos/regex-merge@927e66290e16a9b7a565ab29e0d1b574522a4731
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
           headBranch: ${{ steps.branch_name.outputs.branch }}
-          branchRegex: '^main$'
-          
+          branchRegex: '^develop$'
+   
+   #Delete merged branch       
       - uses: dawidd6/action-delete-branch@d1efac9a6f7a9b408d4e8ff663a99c1fbac17b3f
         with:
           branches: ${{ steps.branch_name.outputs.branch }}
