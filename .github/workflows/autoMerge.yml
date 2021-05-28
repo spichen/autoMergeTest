@@ -6,6 +6,8 @@ on:
   create:
     branches:
       - 'releases/**'
+    branches-ignore:
+      - '!releases/**'
 
 jobs:
   build:
