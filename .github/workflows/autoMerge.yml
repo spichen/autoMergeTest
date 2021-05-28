@@ -4,8 +4,6 @@ name: CI
 
 on:
   create:
-    branches:
-      - 'releases/**'
     branches-ignore:
       - '!releases/**'
 
