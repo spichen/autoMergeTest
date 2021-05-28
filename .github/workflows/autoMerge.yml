@@ -6,8 +6,8 @@ on:
 jobs:
   #Job Name
   mergeBranch:
-  #Run Only If Branch Name Starts with releases/
-    if: ${{ contains(github.ref, 'refs/heads/releases/') }}
+  #Run Only If Branch Name Starts with release/v
+    if: ${{ contains(github.ref, 'refs/heads/release/v') }}
     runs-on: ubuntu-latest
 
     steps:
