@@ -7,21 +7,22 @@ on:
     branches:
       - 'releases/**'
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: branch_name
+        
       - uses: alagos/regex-merge@927e66290e16a9b7a565ab29e0d1b574522a4731
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
-          headBranch: ${{ GITHUB_REF#refs/heads/ }}
+          headBranch: ${{ steps.branch_name.outputs.branch }}
           branchRegex: '^main$'
           
       - uses: dawidd6/action-delete-branch@d1efac9a6f7a9b408d4e8ff663a99c1fbac17b3f
         with:
-          branches: ${{ GITHUB_REF#refs/heads/ }}
+          branches: ${{ steps.branch_name.outputs.branch }}
