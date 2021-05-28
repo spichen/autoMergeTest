@@ -15,8 +15,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
       - uses: alagos/regex-merge@v1.0
         with:
           accessToken: ${{ secrets.GITHUB_TOKEN }}
-          headBranch: main
-          branchRegex: '^releases\/.+'
+          headBranch: ${{ steps.extract_branch.outputs.branch }}
+          branchRegex: '^main$'
