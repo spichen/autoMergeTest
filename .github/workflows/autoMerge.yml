@@ -20,7 +20,7 @@ jobs:
     #Merge branch with name equal to variable named ${{ steps.branch_name.outputs.branch }} to develop
       - uses: alagos/regex-merge@927e66290e16a9b7a565ab29e0d1b574522a4731
         with:
-          accessToken: ${{ secrets.GITHUB_TOKEN }}
+          accessToken: ${{ secrets.MYTOKEN }}
           headBranch: ${{ steps.branch_name.outputs.branch }}
           branchRegex: '^develop$'
    
